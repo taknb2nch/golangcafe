@@ -1,0 +1,59 @@
+﻿# A5:ER FORMAT:08
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright (C)2007 m.matsubara
+# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+#  http://www.wind.sannet.ne.jp/m_matsu/developer/a5m2/
+
+[Manager]
+ProjectName=godbtest
+Author=
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=Main
+PageInfo="Main",4,"A4Landscape"
+LogicalView=0
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=4
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Tahoma
+FontSize=8
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+RDBMSType=6
+RDBMSTypeName=PostgreSQL
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+ShowTag=1
+
+[Entity]
+PName=table1
+LName=
+Comment=
+TableOption=
+Page=MAIN
+Left=350
+Top=150
+Field="id","id","serial","NOT NULL",0,"","",$FFFFFFFF,""
+Field="表示名","display_name","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="性別","sex","@CHAR(1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="誕生日","birthday","@DATETIME",,,"","",$FFFFFFFF,""
+Field="年齢","age","@INT",,,"","",$FFFFFFFF,""
+Field="既婚","married","boolean",,,"","",$FFFFFFFF,""
+Field="レート","rate","@FLOAT",,,"","",$FFFFFFFF,""
+Field="給料","salary","@DECIMAL(10,0)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20131120155944
+Position="MAIN",350,150
