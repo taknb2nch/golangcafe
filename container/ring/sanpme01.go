@@ -31,7 +31,7 @@ func main() {
 	fmt.Println()
 
 	//
-	fmt.Printf("現在の値: %v\n", r.Value) 
+	fmt.Printf("現在の値: %v\n", r.Value)
 	fmt.Println("先頭から5個の要素を削除")
 
 	r1 := r.Unlink(5)
@@ -62,5 +62,5 @@ func printElements(msg string, r *ring.Ring) {
 		fmt.Printf("%v ", v)
 		})
 
-	fmt.Println()	
+	fmt.Println()
 }
