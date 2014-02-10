@@ -11,13 +11,15 @@ import (
 func main() {
 	runtime.GOMAXPROCS(3)
 
-	ch := make(chan int, 10)
+	const max = 10
 
-	for i := 0; i < 10; i++ {
+	ch := make(chan int, max)
+
+	for i := 0; i < max; i++ {
 		go exec(ch, i)
 	}
 
-	for i := 0; i < 10; i++ {
+	for i := 0; i < max; i++ {
 		<-ch
 	}
 }
