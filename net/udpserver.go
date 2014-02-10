@@ -2,7 +2,9 @@ package main
 
 import (
 	"log"
+	"math/rand"
 	"net"
+	"time"
 )
 
 func main() {
@@ -34,6 +36,8 @@ func main() {
 		log.Printf("Receive [%v]: %v\n", remote, s)
 
 		s = "Hello! " + s
+
+		time.Sleep(time.Duration(rand.Intn(3)) * time.Second)
 
 		rlen, err = conn.WriteToUDP([]byte(s), remote)
 
