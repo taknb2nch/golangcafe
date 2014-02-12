@@ -34,13 +34,13 @@ func main() {
 
 	fmt.Printf("%v -> %v\n", "content-type", message.Header.Get("content-type"))
 
-	addrs, err := message.Header.AddressList("from")
+	// addrs, err := message.Header.AddressList("from")
 
-	fmt.Printf("1, %v\n", err)
+	// fmt.Printf("1, %v\n", err)
 
-	for _, addr := range addrs {
-		fmt.Printf("Name: %v, Address: %v\n", addr.Name, addr.Address)
-	}
+	// for _, addr := range addrs {
+	// 	fmt.Printf("Name: %v, Address: %v\n", addr.Name, addr.Address)
+	// }
 
 	var body []byte
 
@@ -50,13 +50,14 @@ func main() {
 	}
 
 	// utf8エンコーディングの場合は変換処理は不要です。
-	dst := make([]byte, len(body))
+	dst := make([]byte, len(body)*2)
+	var dlen int
 	transformer := japanese.ISO2022JP.NewDecoder()
 
-	if _, _, err = transformer.Transform(dst, body, false); err != nil {
+	if dlen, _, err = transformer.Transform(dst, body, true); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: ", err)
 		os.Exit(1)
 	}
 
-	fmt.Printf("%v\n", string(dst))
+	fmt.Printf("%v\n", string(dst[:dlen]))
 }
