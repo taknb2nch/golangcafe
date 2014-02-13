@@ -14,8 +14,8 @@ func main() {
 	pass := "パスワード"
 	from := mail.Address{"From表示名", "from@example.com"}
 	to := []mail.Address{
-		mail.Address{"to表示名", "to@example.com"},
-		mail.Address{"cc表示名", "cc@example.com"}}
+		mail.Address{"to1表示名", "to1@example.com"},
+		mail.Address{"to2表示名", "to2@example.com"}}
 
 	auth := smtp.PlainAuth("", user, pass, "smtp.example.com")
 
