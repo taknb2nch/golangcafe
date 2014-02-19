@@ -16,8 +16,7 @@ func main() {
 	var err error
 
 	if f, err = os.Open("./mail2.eml"); err != nil {
-		fmt.Fprintf(os.Stderr, "Error: ", err)
-		os.Exit(1)
+		fatal("Error: ", err)
 	}
 
 	defer f.Close()
@@ -25,8 +24,7 @@ func main() {
 	var message *mail.Message
 
 	if message, err = mail.ReadMessage(f); err != nil {
-		fmt.Fprintf(os.Stderr, "Error: ", err)
-		os.Exit(1)
+		fatal("Error: ", err)
 	}
 
 	contentType := message.Header.Get("content-type")
@@ -40,8 +38,7 @@ func parseBody(body io.Reader, contentType string) {
 	var err error
 
 	if mediatype, params, err = mime.ParseMediaType(contentType); err != nil {
-		fmt.Fprintf(os.Stderr, "Error: ", err)
-		os.Exit(1)
+		fatal("Error: ", err)
 	}
 
 	switch strings.Split(mediatype, "/")[0] {
@@ -76,4 +73,9 @@ func parseBody(body io.Reader, contentType string) {
 		// 画像などの添付ファイルなど。ファイルに書き出します。
 		fmt.Printf("%v, filename=%v\n\n", mediatype, params["name"])
 	}
+}
+
+func fatal(format string, args ...interface{}) {
+	fmt.Fprintf(os.Stderr, format, args)
+	os.Exit(1)
 }

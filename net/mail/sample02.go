@@ -16,8 +16,7 @@ func main() {
 	var err error
 
 	if f, err = os.Open("./mail.eml"); err != nil {
-		fmt.Fprintf(os.Stderr, "Error: ", err)
-		os.Exit(1)
+		fatal("Error: %v\n", err)
 	}
 
 	defer f.Close()
@@ -25,8 +24,7 @@ func main() {
 	var message *mail.Message
 
 	if message, err = mail.ReadMessage(f); err != nil {
-		fmt.Fprintf(os.Stderr, "Error: ", err)
-		os.Exit(1)
+		fatal("Error: %v\n", err)
 	}
 
 	for k, v := range message.Header {
@@ -46,8 +44,7 @@ func main() {
 	var body []byte
 
 	// if body, err = ioutil.ReadAll(message.Body); err != nil {
-	// 	fmt.Fprintf(os.Stderr, "Error: ", err)
-	// 	os.Exit(1)
+	// 	fatal("Error: %v\n", err)
 	// }
 
 	// utf8エンコーディングの場合は変換処理は不要です。
@@ -65,9 +62,13 @@ func main() {
 	// transform.NewReaderを使うほうがスマート!
 	if body, err = ioutil.ReadAll(
 		transform.NewReader(message.Body, japanese.ISO2022JP.NewDecoder())); err != nil {
-		fmt.Fprintf(os.Stderr, "Error: ", err)
-		os.Exit(1)
+		fatal("Error: %v\n", err)
 	}
 
 	fmt.Printf("%v\n", string(body))
+}
+
+func fatal(format string, args ...interface{}) {
+	fmt.Fprintf(os.Stderr, format, args)
+	os.Exit(1)
 }
