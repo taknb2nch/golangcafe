@@ -3,6 +3,7 @@ package main
 import (
 	// hg clone https://code.google.com/p/go.text/
 	"code.google.com/p/go.text/encoding/japanese"
+	"code.google.com/p/go.text/transform"
 	"fmt"
 	"io/ioutil"
 	"net/mail"
@@ -44,20 +45,29 @@ func main() {
 
 	var body []byte
 
-	if body, err = ioutil.ReadAll(message.Body); err != nil {
-		fmt.Fprintf(os.Stderr, "Error: ", err)
-		os.Exit(1)
-	}
+	// if body, err = ioutil.ReadAll(message.Body); err != nil {
+	// 	fmt.Fprintf(os.Stderr, "Error: ", err)
+	// 	os.Exit(1)
+	// }
 
 	// utf8エンコーディングの場合は変換処理は不要です。
-	dst := make([]byte, len(body)*2)
-	var dlen int
-	transformer := japanese.ISO2022JP.NewDecoder()
+	// dst := make([]byte, len(body)*2)
+	// var dlen int
+	// transformer := japanese.ISO2022JP.NewDecoder()
 
-	if dlen, _, err = transformer.Transform(dst, body, true); err != nil {
+	// if dlen, _, err = transformer.Transform(dst, body, true); err != nil {
+	// 	fmt.Fprintf(os.Stderr, "Error: ", err)
+	// 	os.Exit(1)
+	// }
+
+	//fmt.Printf("%v\n", string(dst[:dlen]))
+
+	// transform.NewReaderを使うほうがスマート!
+	if body, err = ioutil.ReadAll(
+		transform.NewReader(message.Body, japanese.ISO2022JP.NewDecoder())); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: ", err)
 		os.Exit(1)
 	}
 
-	fmt.Printf("%v\n", string(dst[:dlen]))
+	fmt.Printf("%v\n", string(body))
 }
